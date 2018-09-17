@@ -1,0 +1,117 @@
+﻿
+@model POC_WebApplication.ViewModel.ConversionXmlModel
+
+
+<script>
+
+	$(function () {
+
+		var request = $.ajax({
+			url: "Home/XmlFileTree",
+			method: "GET"
+		});
+		request.done(function (msg) {
+			$("#XmlFileTree").dxTreeList({
+
+				dataSource: msg,
+				keyExpr: "NodeId",
+				parentIdExpr: "ParentId",
+				editing: {
+					mode: "row",
+					allowUpdating: true,
+					allowAdding: true,
+					allowDeleting: true,
+
+				},
+				expandedRowKeys: [1],
+				showRowLines: true,
+				showBorders: true,
+				columnAutoWidth: true,
+				columns: [
+					{
+						dataField: "NodeId",
+					},
+					{
+						dataField: "NodeName",
+						validationRules: [{ type: "required" }]
+					}, {
+						dataField: "NodeValue",
+
+						validationRules: [{ type: "required" }]
+					}, {
+						dataField: "Attribute",
+
+						validationRules: [{ type: "required" }]
+					}
+				],
+				onRowUpdated: function (e) {
+					logEvent("RowUpdated");
+				},
+
+
+			});
+
+		});
+		request.fail(function (jqXHR, textStatus) {
+			console.log("Request failed: " + textStatus);
+		});
+
+
+	
+		$("#btnSaveTree").click(function () {
+
+			var menuInstance = $("#tasks").dxTreeList("instance");
+			var menuDataSource = menuInstance.option("dataSource");
+			$.ajax({
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				url: "UpdateXml",
+				method: "Post",
+				data: JSON.stringify(menuDataSource),
+
+			});
+
+		});
+
+	});
+	
+
+</script>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+	<div class="form-horizontal col-md-10">
+
+		<hr />
+		@Html.ValidationSummary(true)
+		@Html.HiddenFor(model => model.Xml_id)
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Xml_TypeId, "XML TYPE", new { @class = "control-label col-md-2 text-primary" })
+			<div class="col-md-4">
+				@Html.TextBoxFor(model => model.Xml_TypeId,new { @class= "form-control" })
+				@Html.ValidationMessageFor(model => model.Xml_TypeId)
+			</div>
+		</div>
+		
+			
+
+		<div class="form-group">
+			<div class="demo-container">
+				<label class="control-label col-md-2 d text-primary"> XML File </label>
+				<div id="XmlFileTree"></div><div></div>
+			</div>
+
+		</div>
+
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
+
+
+}

@@ -1,0 +1,64 @@
+@using POC_WebApplication.Models
+
+@{
+	ViewBag.Title = "Index";
+}
+
+
+<script>
+
+    $(function () {
+		
+        $("#transactionGridContainer").dxDataGrid({
+			dataSource:"Home/GetAllXmlFile",
+			columns: ["Xml_Id", "Xml_TypeId","XmlFile"],
+            showBorders: true,
+            
+            selection: {
+                mode: "single"
+            },
+        });
+
+
+        $("#editGrid").click(function () {
+            var dataGrid = $('#transactionGridContainer').dxDataGrid('instance');
+			var selectId = dataGrid.getSelectedRowKeys();
+		
+            $.ajax({
+				url: "@Url.Action("EditXmlFileForm")",
+				
+				data: {
+					id: selectId[0].Xml_Id
+				},
+				success: function (result) {;
+					$("#formDiv").html(result);
+
+                }
+            });
+			
+        });
+    });
+
+</script>
+
+
+
+<div class="container">
+	<h2>Add / Edit Xml File</h2>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="transaction-container">
+
+				<button id="editGrid" class="dx-button"> Edit</button>
+				<div id="transactionGridContainer">
+				</div>
+
+			</div>
+
+		</div>
+		<div class="panel-body">
+			<div id="formDiv">
+			</div>
+		</div>
+	</div>
+</div>
