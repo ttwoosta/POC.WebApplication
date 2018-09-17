@@ -10,5 +10,7 @@ namespace POC_WebApplication.ViewModel
         public int Xml_id { get; set; }
         public int Xml_TypeId { get; set; }
         public string XmlFile { get; set; }
+
+        public List<XMLModel> XmlModel { get; set; }
     }
 }

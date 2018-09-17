@@ -58,16 +58,28 @@
 
 
 	
-		$("#btnSaveTree").click(function () {
+		$("#btnSaveTree").click(function () {			
 
-			var menuInstance = $("#tasks").dxTreeList("instance");
+			var menuInstance = $("#XmlFileTree").dxTreeList("instance");
 			var menuDataSource = menuInstance.option("dataSource");
+
+			var model = {
+				Xml_id:$("#Xml_id").val(),
+				Xml_TypeId:$("#Xml_TypeId").val(),
+				XmlModel:menuDataSource,
+
+			};
 			$.ajax({
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
-				url: "UpdateXml",
+				url: "Home/UpdateXMLFile",
 				method: "Post",
-				data: JSON.stringify(menuDataSource),
+				data: JSON.stringify(model),
+				success: function (data) {
+					console.log(data);
+					var type = data.value ? "success" : "success";
+					DevExpress.ui.notify("Updated sucessfully", type, 600);
+				}
 
 			});
 
@@ -96,8 +108,6 @@
 			</div>
 		</div>
 		
-			
-
 		<div class="form-group">
 			<div class="demo-container">
 				<label class="control-label col-md-2 d text-primary"> XML File </label>
@@ -106,10 +116,9 @@
 
 		</div>
 
-
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Save" class="btn btn-primary" />
+				<input type="button" id="btnSaveTree" value="Save" class="btn btn-primary" />
 			</div>
 		</div>
 	</div>

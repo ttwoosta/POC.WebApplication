@@ -70,5 +70,13 @@ namespace POC_WebApplication.Controllers {
             return Json(xn, JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpPost]
+        public ActionResult UpdateXMLFile(ConversionXmlModel xmlfile)
+        {
+            xmlRepository.UpdateXmlFile(xmlfile);
+            return Json("success");
+           
+        }
     }
 }

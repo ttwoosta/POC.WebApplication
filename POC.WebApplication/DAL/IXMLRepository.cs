@@ -1,5 +1,6 @@
 ﻿
 using POC_WebApplication.Models;
+using POC_WebApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace POC_WebApplication.DAL
     {
         IEnumerable<ConversionXml> GetAllXmlFile();
         ConversionXml GetXmlFileById(int XmlId);
+
+        ConversionXml UpdateXmlFile(ConversionXmlModel xmlFile);
     }
 }
