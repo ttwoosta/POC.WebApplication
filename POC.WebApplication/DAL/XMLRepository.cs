@@ -58,5 +58,10 @@ namespace POC_WebApplication.DAL
             return selectedXml;
 
         }
+
+        public void ConvertXmlintoModel()
+        {
+
+        }
     }
 }

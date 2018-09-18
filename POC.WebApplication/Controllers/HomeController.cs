@@ -1,11 +1,14 @@
+using Newtonsoft.Json;
 using POC_WebApplication.DAL;
 using POC_WebApplication.Models;
+using POC_WebApplication.Services;
 using POC_WebApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace POC_WebApplication.Controllers {
     public class HomeController : Controller {
@@ -39,35 +42,11 @@ namespace POC_WebApplication.Controllers {
             return PartialView("_EditXmlFileForm", model);
         }
 
-        public JsonResult XmlFileTree()
+        public JsonResult XmlFileTree(int xmlId)
         {
-            List<XMLModel> xn = new List<XMLModel>();
-
-            XMLModel xnode = new XMLModel();
-            xnode.NodeName = "parent";
-            xnode.NodeId = 1;
-            xnode.ParentId = 0;
-            xn.Add(xnode);
-
-            for (int i = 2; i < 4; i++)
-            {
-                XMLModel xnode2 = new XMLModel();
-                xnode2.NodeName = "Child";
-                xnode2.NodeId = i;
-                xnode2.ParentId = 1;
-                xn.Add(xnode2);
-            }
-
-            for (int i = 4; i < 8; i++)
-            {
-                XMLModel xnode2 = new XMLModel();
-                xnode2.NodeName = "Key";
-                xnode2.NodeValue = "Value" + i;
-                xnode2.NodeId = i;
-                xnode2.ParentId = 2;
-                xn.Add(xnode2);
-            }
-            return Json(xn, JsonRequestBehavior.AllowGet);
+            XmlSerialization xs = new XmlSerialization();
+           var model =  xs.ProcessXml(xmlId);
+            return Json(model, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -78,5 +57,8 @@ namespace POC_WebApplication.Controllers {
             return Json("success");
            
         }
+
+
+       
     }
 }

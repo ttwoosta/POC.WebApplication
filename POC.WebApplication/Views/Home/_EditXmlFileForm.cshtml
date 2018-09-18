@@ -8,6 +8,9 @@
 
 		var request = $.ajax({
 			url: "Home/XmlFileTree",
+			data: {
+				xmlId: $("#Xml_id").val()
+			},
 			method: "GET"
 		});
 		request.done(function (msg) {
@@ -50,6 +53,7 @@
 
 
 			});
+
 
 		});
 		request.fail(function (jqXHR, textStatus) {

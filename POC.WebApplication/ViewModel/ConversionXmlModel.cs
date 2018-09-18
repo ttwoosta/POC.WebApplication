@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POC_WebApplication.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,6 @@ namespace POC_WebApplication.ViewModel
         public int Xml_TypeId { get; set; }
         public string XmlFile { get; set; }
 
-        public List<XMLModel> XmlModel { get; set; }
+        public List<XmlModel> XmlModel { get; set; }
     }
 }
