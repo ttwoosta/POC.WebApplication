@@ -47,7 +47,9 @@ namespace POC_WebApplication.Services
                         {
                             NodeName = elementAndIndexAndParent.Element.Name.LocalName,
                             NodeId = elementAndIndexAndParent.Index,
-                            ParentId = elementAndIndexAndParent.ParentElement == null ? 0 : elementAndIndexAndParent.ParentElement.index
+                            ParentId = elementAndIndexAndParent.ParentElement == null ? 0 : elementAndIndexAndParent.ParentElement.index,
+                            NodeValue=elementAndIndexAndParent.Element.HasElements == true? null : elementAndIndexAndParent.Element.Value,
+                            Attributes=elementAndIndexAndParent.Element.Attributes(),
                         })
                 .ToList();
 

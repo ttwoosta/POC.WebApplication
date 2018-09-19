@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
 namespace POC_WebApplication.Services
 {
@@ -9,9 +10,7 @@ namespace POC_WebApplication.Services
     {
       
             public string NodeName { get; set; }
-
-            public List<Attribute> Attributes { get; set; }
-
+            public IEnumerable<XAttribute> Attributes { get; set; }
             public int NodeId { get; set; }
             public int stringId { get; set; }
             public int ParentId { get; set; }
@@ -19,13 +18,7 @@ namespace POC_WebApplication.Services
             public string NodeValue { get; set; }
     }
 
-    public class Attribute
 
-    {
-            public string Name { get; set; }
-            public string Value { get; set; }
-
-    }
 
     
 }
